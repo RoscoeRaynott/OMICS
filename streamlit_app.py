@@ -5,6 +5,7 @@ import urllib.request
 from sklearn.decomposition import PCA
 import matplotlib.pyplot as plt
 import seaborn as sns
+import io # New import
 
 @st.cache_data
 def load_remote_data():
@@ -46,7 +47,39 @@ def plot_pca(df, label_column="sample_type"):
 st.title("🧬 Omics Feature Selection + Clustering App")
 df = load_remote_data()
 st.write("Expression matrix shape:", df.shape)
-st.dataframe(df.iloc[5:15, 10:80])
+st.dataframe(df.iloc[5:15, 10:20])
 
 st.subheader("PCA Visualization of Classes")
 plot_pca(df, label_column="sample_type")
+
+
+# --- Start of New Section ---
+
+st.subheader("Download App Context")
+
+# List of files to include in the download.
+# To add more files, just add their filenames to this list.
+files_to_include = ['app.py', 'requirements.txt'] # Assuming your script is named app.py
+
+# Create an in-memory text buffer
+context_buffer = io.StringIO()
+
+for filename in files_to_include:
+    context_buffer.write(f"--- Start of {filename} ---\n\n")
+    try:
+        with open(filename, 'r') as f:
+            context_buffer.write(f.read())
+        context_buffer.write(f"\n\n--- End of {filename} ---\n\n")
+    except FileNotFoundError:
+        st.warning(f"Warning: Could not find the file '{filename}'. It will not be included in the download.")
+
+
+# Create the download button
+st.download_button(
+   label="Download context.txt",
+   data=context_buffer.getvalue(),
+   file_name="context.txt",
+   mime="text/plain",
+)
+
+# --- End of New Section ---
