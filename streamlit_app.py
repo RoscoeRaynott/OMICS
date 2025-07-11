@@ -37,7 +37,7 @@ def plot_pca(df, label_column="sample_type"):
     })
 
     fig, ax = plt.subplots(figsize=(8, 6))
-    sns.scatterplot(data=pca_df, x="PC1", y="PC2", hue="Label", palette="Set2", alpha=0.7, s=50, ax=ax)
+    sns.scatterplot(data=pca_df, x="PC1", y="PC2", hue="Label", palette="Set1", alpha=0.7, s=50, ax=ax)
     ax.set_title("PCA: Colored by Sample Type")
     ax.legend(loc="best", title="Sample Type", bbox_to_anchor=(1.05, 1), borderaxespad=0.)
     st.pyplot(fig)
