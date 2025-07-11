@@ -5,11 +5,21 @@ import urllib.request
 
 @st.cache_data
 def load_remote_data():
-    url = "https://tcga.xenahubs.net/download/TCGA.BRCA.sampleMap/HiSeqV2.gz"
-    response = urllib.request.urlopen(url)
-    with gzip.open(response, "rt") as f:
-        df = pd.read_csv(f, sep='\t', index_col=0)
-    return df.T
+    # Load expression data
+    url_expr = "https://tcga.xenahubs.net/download/TCGA.BRCA.sampleMap/HiSeqV2.gz"
+    with urllib.request.urlopen(url_expr) as response:
+        with gzip.open(response, "rt") as f:
+            df_expr = pd.read_csv(f, sep='\t', index_col=0).T  # samples x genes
+
+    # Load sample type metadata
+    url_meta = "https://tcga.xenahubs.net/download/TCGA.BRCA.sampleMap/BRCA_clinicalMatrix"
+    df_meta = pd.read_csv(url_meta, sep="\t", index_col=0)
+
+    # Extract and align sample_type
+    df_expr["sample_type"] = df_meta["sample_type"].reindex(df_expr.index)
+
+    return df_expr
+
 
 st.title("🧬 Omics Feature Selection + Clustering App")
 df = load_remote_data()
