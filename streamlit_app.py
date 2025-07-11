@@ -46,7 +46,7 @@ def plot_pca(df, label_column="sample_type"):
 st.title("🧬 Omics Feature Selection + Clustering App")
 df = load_remote_data()
 st.write("Expression matrix shape:", df.shape)
-st.dataframe(df.iloc[5:15, 10:20])
+st.dataframe(df.iloc[5:15, 10:80])
 
 st.subheader("PCA Visualization of Classes")
 plot_pca(df, label_column="sample_type")
