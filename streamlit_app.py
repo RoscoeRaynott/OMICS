@@ -14,4 +14,4 @@ def load_remote_data():
 st.title("🧬 Omics Feature Selection + Clustering App")
 df = load_remote_data()
 st.write("Expression matrix shape:", df.shape)
-st.dataframe(df.iloc[:5, :5])
+st.dataframe(df.iloc[5:15, 10:20])
