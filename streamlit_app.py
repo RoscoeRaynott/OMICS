@@ -59,7 +59,7 @@ st.subheader("Download App Context")
 
 # List of files to include in the download.
 # To add more files, just add their filenames to this list.
-files_to_include = ['app.py', 'requirements.txt'] # Assuming your script is named app.py
+files_to_include = ['streamlit_app.py', 'requirements.txt'] # Assuming your script is named app.py
 
 # Create an in-memory text buffer
 context_buffer = io.StringIO()
