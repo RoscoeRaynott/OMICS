@@ -52,7 +52,7 @@ st.dataframe(df.iloc[5:15, 10:20])
 st.subheader("PCA Visualization of Classes")
 plot_pca(df, label_column="sample_type")
 
-st.write(sum(df.iloc[:,6] == 0))  #37
+st.write(sum(df.iloc['c16orf11'] == 0))  #37
 #st.write(df.describe())
 
 
